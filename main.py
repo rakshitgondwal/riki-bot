@@ -2,6 +2,7 @@ import os
 import discord
 import requests
 import json  
+from keep_alive import keep_alive
 
 intent = discord.Intents.default()
 intent.members = True
@@ -43,5 +44,7 @@ async def on_message(message):
   if msg.startswith('xzile'):
     await message.channel.send(file=discord.File('xzile.png'))
 
+
+keep_alive()
 
 client.run(os.getenv('CLIENT_ID'))
