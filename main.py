@@ -37,5 +37,11 @@ async def on_message(message):
   if message.content.startswith('joke'):
     await message.channel.send(haha)
 
+  if msg.startswith('reaction'):
+    await message.channel.send(file=discord.File('armaan.png'))
+
+  if msg.startswith('xzile'):
+    await message.channel.send(file=discord.File('xzile.png'))
+
 
 client.run(os.getenv('CLIENT_ID'))
