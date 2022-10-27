@@ -1,11 +1,20 @@
 import os
 import discord
+import requests
+import json  
 
 intent = discord.Intents.default()
 intent.members = True
 intent.message_content = True
 
 client = discord.Client(intents=intent)
+
+def getJoke():
+  response = requests.get("https://hindi-jokes-api.onrender.com/jokes?api_key=339b8a63bc0ffb9a50b44afae844")
+  
+  json_data = json.loads(response.text)
+  joke = json_data['jokeContent']
+  return(joke)
 
 
 @client.event
@@ -18,9 +27,15 @@ async def on_message(message):
   if message.author == client.user:
     return
 
-  if message.content.startswith('$armaan'):
-    await message.channel.send('Billo Rani')
+  msg = message.content
 
-botId = os.getenv('CLIENT_ID')
+  if msg.startswith('armaan'):
+    await message.channel.send('billo')
 
-client.run(botId)
+  haha = getJoke()
+  
+  if message.content.startswith('joke'):
+    await message.channel.send(haha)
+
+
+client.run(os.getenv('CLIENT_ID'))
